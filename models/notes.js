@@ -5,12 +5,12 @@ const NotesSchema = new mongoose.Schema({
     title: {
         type: String,
     },
-    note: {
+    notes: {
         type: String,
     },
     createdBy: {
         type: mongoose.Types.ObjectId,
-        ref: User,
+        ref: "User",
         required: true
     }
 }, {timestamps: true})
