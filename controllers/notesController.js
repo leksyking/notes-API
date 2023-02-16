@@ -29,3 +29,13 @@ const updateNote = async (req, res) => {
 const deleteNote = async (req, res) => {
     
 }
+
+
+module.exports = {
+    createNote,
+    getAllNotes,
+    getSingleNote,
+    getSingleUserNotes,
+    updateNote,
+    deleteNote
+}

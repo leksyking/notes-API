@@ -1,13 +1,11 @@
-const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const { UnathenticatedError } = require('../errors')
-const { StatusCodes } = require('http-status-codes')
 
 const auth = async (req, res, next) => {
     //check header
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer')){
-        throw new UnathenticatedError('Authntication Invalid')
+        throw new UnathenticatedError('Invalid Authentication')
     }
     const token = authHeader.split(' ')[1]
     try {
@@ -15,7 +13,7 @@ const auth = async (req, res, next) => {
         //attach the user to the job routes
         req.user = {userId: payload.userId, name: payload.name}
         next()
-     } catch (error) {
+    } catch (error) {
         throw new UnathenticatedError('Authentication Invalid')
     }
 }
