@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  title: Notes App
+  description: >-
+    Authentication Type is OAuth 2.0 - Bearer Token
+
+    On registration or log in, a token is returned and it's to be put inside the bearer token for authorization for the Notes CRUD endpoints.
+  contact: {}
+  version: '1.0.0'
+servers:
+- url: https://notes-app-5d5l.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Authentication System
+      summary: Register
+      description: Users to register using name, email and password
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterRequest'
+              - example:
+                  name: Felix Ogundipe
+                  email: gbemilekeogundipe@gmail.com
+                  password: password
+            example:
+              name: Felix Ogundipe
+              email: gbemilekeogundipe@gmail.com
+              password: password
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Authentication System
+      summary: Login
+      description: Users to login using their email and password
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginRequest'
+              - example:
+                  email: gbemilekeogundipe@gmail.com
+                  password: password
+            example:
+              email: gbemilekeogundipe@gmail.com
+              password: password
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /note:
+    get:
+      tags:
+      - Notes CRUD functionalities
+      summary: Get all notes
+      description: Get every notes created - Requires no authentication.
+      operationId: Getallnotes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    post:
+      tags:
+      - Notes CRUD functionalities
+      summary: Create note
+      description: >-
+        Checks for the bearer token for authentication.
+
+        Creates Note.
+      operationId: Createnote
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreatenoteRequest'
+              - example:
+                  title: Todo asetyy Notes
+                  notes: ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            example:
+              title: Todo asetyy Notes
+              notes: ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /note/63eed974ca3331aff507f6b4:
+    get:
+      tags:
+      - Notes CRUD functionalities
+      summary: Get single note
+      description: >-
+        Checks for the bearer token for authentication
+
+        Get a single note with the note's id
+      operationId: Getsinglenote
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Notes CRUD functionalities
+      summary: Update note
+      description: >-
+        Checks for the bearer token for authentication.
+
+        Update a single note using its id
+      operationId: Updatenote
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatenoteRequest'
+              - example:
+                  title: My updated note
+                  notes: Lorem wetin ???
+            example:
+              title: My updated note
+              notes: Lorem wetin ???
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /note/63eeda18ca3331aff507f6bd:
+    delete:
+      tags:
+      - Notes CRUD functionalities
+      summary: Delete note
+      description: >-
+        Checks for the bearer token for authentication.
+
+        Delete a single note using its id
+      operationId: Deletenote
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /note/my-notes:
+    get:
+      tags:
+      - Notes CRUD functionalities
+      summary: Get all current user notes
+      description: >-
+        Checks for the bearer token for authentication
+
+        Get all notes belonging to the logged in user
+      operationId: Getallcurrentusernotes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Felix Ogundipe
+        email: gbemilekeogundipe@gmail.com
+        password: password
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: gbemilekeogundipe@gmail.com
+        password: password
+    CreatenoteRequest:
+      title: CreatenoteRequest
+      required:
+      - title
+      - notes
+      type: object
+      properties:
+        title:
+          type: string
+        notes:
+          type: string
+      example:
+        title: Todo asetyy Notes
+        notes: ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    UpdatenoteRequest:
+      title: UpdatenoteRequest
+      required:
+      - title
+      - notes
+      type: object
+      properties:
+        title:
+          type: string
+        notes:
+          type: string
+      example:
+        title: My updated note
+        notes: Lorem wetin ???
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Authentication System
+- name: Notes CRUD functionalities

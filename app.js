@@ -4,6 +4,10 @@ require("express-async-errors")
 const express = require("express")
 const app = express()
 
+const swaggerUI = require("swagger-ui-express")
+const YAML = require("yamljs")
+const swaggerDocument = YAML.load("./swagger.yaml")
+
 //middlewares and routes
 const connectDB = require("./db/connectdb")
 const noteRoute = require("./routes/notes")
@@ -14,6 +18,8 @@ const notFoundMiddleware = require("./middlewares/notfoundmiddleware")
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.get("/", (req, res, next) => res.send('<h1>Notes Api</h1> <a href="/api-docs">Documentation</a>'))
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/note", noteRoute)
 
