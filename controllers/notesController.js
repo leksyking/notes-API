@@ -1,6 +1,6 @@
  const Note = require("../models/notes")
 const {StatusCodes} = require('http-status-codes')
-const { BadRequestError, UnauthenticatedError, NotFoundError } = require('../errors')
+const { NotFoundError } = require('../errors')
 
 
 const createNote = async (req, res) => {
