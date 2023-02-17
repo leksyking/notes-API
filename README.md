@@ -1,4 +1,3 @@
 ### Uplink Talent (Notes API) Backend Task
 
-#### Authentication Type
-authorization header
+Web hosted project link with documentation: https://notes-app-5d5l.onrender.com
